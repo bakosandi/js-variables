@@ -68,7 +68,7 @@ function inventory() {
     }
     document.body.append(div);
 
-    let special = customer === "Ádám"; // mindig használjuk a ===, ne használjuk == így!!, ha nem egyenlő !== //
+    let special = customer === "Ádám"; // mindig használjuk a ===, ne használjuk így ==; ha nem egyenlő !== //
     if (!available && special) { // ! azt jelenti, hogy not //
         div.innerText = div.innerText + " De neki mégis ";
     } 
