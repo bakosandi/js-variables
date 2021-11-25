@@ -36,8 +36,36 @@ function main() {
     }
 }
 
+function displayDetails(product) {
+    let stock = product.stock;
+    let price = product.price;
+    let value = stock * price;
+    let name = product.name;
+    let attachments = product.attachments;
+    let productDetailsDiv = document.createElement("div");
+    productDetailsDiv.className = "product-details";
+    productDetailsDiv.innerText = name + " : " + value + " " + attachments.join(",");
+    document.getElementById("container").append(productDetailsDiv);
+
+    let available = stock >= 5;
+    let stockInfoDiv = document.createElement("div");
+    stockInfoDiv.className = "stock-info";
+
+    if (available) {
+        stockInfoDiv.innerText= " elérhető ";
+    } else {
+          stockInfoDiv.innerText= " nem elérhető ";
+    }
+    productDetailsDiv.append(stockInfoDiv);
+
+    let special = customer === "Ádám"; /* mindig használjuk a ===, ne használjuk így ==; ha nem egyenlő !== */
+    if (!available && special) { /* ! azt jelenti, hogy not */
+        stockInfoDiv.innerText = stockInfoDiv.innerText + " De neki mégis ";
+    } 
+}
+
 function inventory() {
-    let stock = products[2].stock;
+    /* let stock = products[2].stock;
     let price = products[2].price;
     let value = stock * price;
     let div = document.createElement("div");
@@ -56,23 +84,12 @@ function inventory() {
     value = stock * price;
     div = document.createElement("div");
     div.innerText = products[1].name + " : " + value;
-    document.body.append(div);
+    document.body.append(div); */
 
-    stock = products[0].stock;
-    let available = stock >= 5;
-    div = document.createElement("div");
-    if (available) {
-        div.innerText= products[0].name + " elérhető ";
-    } else {
-          div.innerText= products[0].name + " nem elérhető ";
-    }
-    document.body.append(div);
+    displayDetails(products[0]);
+    displayDetails(products[1]);
+    displayDetails(products[2]);
 
-    let special = customer === "Ádám"; // mindig használjuk a ===, ne használjuk így ==; ha nem egyenlő !== //
-    if (!available && special) { // ! azt jelenti, hogy not //
-        div.innerText = div.innerText + " De neki mégis ";
-    } 
-    
 }
 
 window.addEventListener("load", inventory);
